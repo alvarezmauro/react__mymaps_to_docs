@@ -7,14 +7,9 @@ import convert from "xml-js";
  * @param mapURL URL of the map
  */
 export async function getMapKml(mapURL) {
-  // console.log(mapURL);
-
   const mapKmlFile = await fetch(mapURL);
   const mapKmlText = await mapKmlFile.text();
   const mapKmlData = await fromKmlToJs(mapKmlText);
-
-  console.log(mapKmlData);
-
   return mapKmlData;
 }
 
