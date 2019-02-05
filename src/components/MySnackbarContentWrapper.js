@@ -1,16 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import ErrorIcon from "@material-ui/icons/Error";
-import InfoIcon from "@material-ui/icons/Info";
-import CloseIcon from "@material-ui/icons/Close";
-import green from "@material-ui/core/colors/green";
-import amber from "@material-ui/core/colors/amber";
-import IconButton from "@material-ui/core/IconButton";
-import SnackbarContent from "@material-ui/core/SnackbarContent";
-import WarningIcon from "@material-ui/icons/Warning";
-import { withStyles } from "@material-ui/core/styles";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
+import InfoIcon from '@material-ui/icons/Info';
+import CloseIcon from '@material-ui/icons/Close';
+import green from '@material-ui/core/colors/green';
+import amber from '@material-ui/core/colors/amber';
+import IconButton from '@material-ui/core/IconButton';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import WarningIcon from '@material-ui/icons/Warning';
+import { withStyles } from '@material-ui/core/styles';
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -40,8 +40,8 @@ const styles = theme => ({
     marginRight: theme.spacing.unit
   },
   message: {
-    display: "flex",
-    alignItems: "center"
+    display: 'flex',
+    alignItems: 'center'
   }
 });
 
@@ -52,18 +52,18 @@ function MySnackbarContent(props) {
   return (
     <SnackbarContent
       className={classNames(classes[variant], className)}
-      aria-describedby="client-snackbar"
+      aria-describedby='client-snackbar'
       message={
-        <span id="client-snackbar" className={classes.message}>
+        <span id='client-snackbar' className={classes.message}>
           <Icon className={classNames(classes.icon, classes.iconVariant)} />
           {message}
         </span>
       }
       action={[
         <IconButton
-          key="close"
-          aria-label="Close"
-          color="inherit"
+          key='close'
+          aria-label='Close'
+          color='inherit'
           className={classes.close}
           onClick={onClose}
         >
@@ -80,7 +80,7 @@ MySnackbarContent.propTypes = {
   className: PropTypes.string,
   message: PropTypes.node,
   onClose: PropTypes.func,
-  variant: PropTypes.oneOf(["success", "warning", "error", "info"]).isRequired
+  variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired
 };
 
 const MySnackbarContentWrapper = withStyles(styles)(MySnackbarContent);

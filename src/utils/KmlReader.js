@@ -1,4 +1,4 @@
-import convert from "xml-js";
+import convert from 'xml-js';
 
 /**
  * Get the information of the map specified in the URL
@@ -7,9 +7,20 @@ import convert from "xml-js";
  * @param mapURL URL of the map
  */
 export async function getMapKml(mapURL) {
-  const mapKmlFile = await fetch(mapURL);
-  const mapKmlText = await mapKmlFile.text();
-  const mapKmlData = await fromKmlToJs(mapKmlText);
+  let mapKmlData;
+
+  try {
+    const mapKmlFile = await fetch(mapURL);
+    const mapKmlText = await mapKmlFile.text();
+    mapKmlData = await fromKmlToJs(mapKmlText);
+  } catch (error) {
+    mapKmlData = {
+      status: 'error',
+      message: error,
+      data: {}
+    };
+  }
+
   return mapKmlData;
 }
 
@@ -20,8 +31,8 @@ export async function getMapKml(mapURL) {
  */
 export async function fromKmlToJs(mapKmlText) {
   let mapKmlData = {
-    status: "success",
-    message: "success",
+    status: 'success',
+    message: 'success',
     data: {}
   };
 
@@ -31,13 +42,13 @@ export async function fromKmlToJs(mapKmlText) {
     mapKmlObj = mapKmlObj.kml.Document;
 
     mapKmlData = {
-      status: "success",
-      message: "success",
+      status: 'success',
+      message: 'success',
       data: mapKmlObj
     };
   } catch (error) {
     mapKmlData = {
-      status: "error",
+      status: 'error',
       message: error,
       data: {}
     };

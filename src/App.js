@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
+import { MapContextProvider } from './components/MapContext';
+import MapUrlFrom from './components/MapUrlFrom';
+
+const styles = theme => ({
+  root: {
+    textAlign: 'center',
+    backgroundColor: theme.palette.background.default,
+    height: '100%',
+    overflow: 'auto'
+  }
+});
 
 class App extends Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+      <MapContextProvider>
+        <div className={classes.root}>
+          <Grid
+            container
+            direction='row'
+            justify='center'
+            alignItems='center'
+            spacing={24}
           >
-            Learn React
-          </a>
-        </header>
-      </div>
+            <Grid item xs={11} sm={10}>
+              <MapUrlFrom />
+            </Grid>
+          </Grid>
+        </div>
+      </MapContextProvider>
     );
   }
 }
 
-export default App;
+export default withStyles(styles)(App);
