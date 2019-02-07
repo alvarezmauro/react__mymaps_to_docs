@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 
 import { MapContextProvider } from './components/MapContext';
 import MapUrlFrom from './components/MapUrlFrom';
+import MapInformation from './components/MapInformation';
 
 const styles = theme => ({
   root: {
-    textAlign: 'center',
     backgroundColor: theme.palette.background.default,
     height: '100%',
     overflow: 'auto'
@@ -29,6 +29,7 @@ class App extends Component {
           >
             <Grid item xs={11} sm={10}>
               <MapUrlFrom />
+              <MapInformation />
             </Grid>
           </Grid>
         </div>
