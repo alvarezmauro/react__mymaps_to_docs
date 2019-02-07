@@ -16,7 +16,8 @@ export async function getMapKml(mapURL) {
   } catch (error) {
     mapKmlData = {
       status: 'error',
-      message: error,
+      message: 'There has been a problem with the URL, please check that URL provided is a valid and public URL',
+      // message: error + '',
       data: {}
     };
   }
@@ -49,7 +50,7 @@ export async function fromKmlToJs(mapKmlText) {
   } catch (error) {
     mapKmlData = {
       status: 'error',
-      message: error,
+      message: error + '',
       data: {}
     };
   }
