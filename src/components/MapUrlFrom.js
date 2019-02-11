@@ -126,11 +126,10 @@ class MapUrlFrom extends Component {
                   <TextField
                     required
                     id='input-map-url'
-                    label='Text'
                     value={this.state.mapUrl}
                     error={!this.state.isValidUrl}
                     onChange={this.onInputChange}
-                    // label='Your Map Url'
+                    label='Your Map URL'
                     helperText='URL of your map (the map has to be public)'
                     className={classes.textField}
                     margin='normal'
@@ -156,7 +155,7 @@ class MapUrlFrom extends Component {
                       !this.state.isValidUrl || this.state.mapUrl === ''
                     }
                   >
-                    Button
+                    Get Map Info
                   </Button>
                 </Grid>
               </Grid>
