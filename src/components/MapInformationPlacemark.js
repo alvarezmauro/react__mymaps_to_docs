@@ -18,7 +18,8 @@ const styles = theme => ({
     flex: '1 0 auto'
   },
   cover: {
-    width: 151
+    width: 150,
+    height: 150
   },
   controls: {
     display: 'flex',
@@ -41,7 +42,7 @@ function MapInformationPlacemark(props) {
     }
   }
 
-  function getDescription(placemark) {
+  function getDescriptionElement(placemark) {
     if (placemark.description) {
       return placemark.description._text
         ? placemark.description._text
@@ -51,17 +52,42 @@ function MapInformationPlacemark(props) {
     }
   }
 
-  function getCoordinates(placemark) {
+  function getCoordinateElement(placemark) {
     if (placemark.Point.coordinates) {
-      const coordinateText = placemark.Point.coordinates._text
+      const coordinateValue = getCoordinatesValues(placemark);
+      
+      return (
+        <Fragment>
+          <LocationOn fontSize='inherit' /> Lat: {coordinateValue.lat}, Lng: {coordinateValue.lng}
+        </Fragment>
+      );
+    } else {
+      return '';
+    }
+  }
+
+  function getCoordinates(placemark) {
+    const coordinatesValues = getCoordinatesValues(placemark);
+    return `${coordinatesValues.lat},${coordinatesValues.lng}`
+  }
+
+  function getCoordinatesValues(placemark) {
+    if (placemark.Point.coordinates) {
+      let coordinateValue = {
+        lat: '',
+        lng: ''
+      }
+      let coordinateText = placemark.Point.coordinates._text
         ? placemark.Point.coordinates._text
         : placemark.Point.coordinates._cdata;
 
-      return (
-        <Fragment>
-          <LocationOn fontSize='inherit' /> {coordinateText}
-        </Fragment>
-      );
+      coordinateText = coordinateText.split(',');
+
+      if (coordinateText.length > 0) {
+        coordinateValue.lat = coordinateText[1].trim();
+        coordinateValue.lng = coordinateText[0].trim();
+      }
+      return coordinateValue;
     } else {
       return '';
     }
@@ -71,21 +97,26 @@ function MapInformationPlacemark(props) {
     <Card className={classes.card}>
       <CardMedia
         className={classes.cover}
-        image='/static/images/cards/live-from-space.jpg'
+        image={`https://maps.googleapis.com/maps/api/staticmap?autoscale=2&size=150x150&maptype=roadmap&key=AIzaSyB0-K4EabO1J3223LQblNbfstkPkbmb04k&format=png&visual_refresh=true&markers=size:small%7Ccolor:0x3998f1%7Clabel:1%7C${getCoordinates(placemark)}`}
         title='Live from space album cover'
       />
 
       <div className={classes.details}>
         <CardContent className={classes.content}>
+          {/* <img
+            width='150'
+            src={`https://maps.googleapis.com/maps/api/staticmap?autoscale=2&size=150x150&maptype=roadmap&key=AIzaSyB0-K4EabO1J3223LQblNbfstkPkbmb04k&format=png&visual_refresh=true&markers=size:small%7Ccolor:0x3998f1%7Clabel:1%7C${getCoordinates(placemark)}`}
+            alt={getName(placemark)}
+          /> */}
           <Typography component='h5' variant='h5'>
             {getName(placemark)}
           </Typography>
 
           <Typography variant='body2' color='textSecondary'>
-            {getCoordinates(placemark)}
+            {getCoordinateElement(placemark)}
           </Typography>
 
-          <Typography variant='body1'>{getDescription(placemark)}</Typography>
+          <Typography variant='body1'>{getDescriptionElement(placemark)}</Typography>
         </CardContent>
         <div className={classes.controls} />
       </div>
